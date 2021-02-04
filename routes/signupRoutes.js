@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 
 const app = express();
 const router = express.Router();
+const User = require("../schema/user");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
