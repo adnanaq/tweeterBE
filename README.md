@@ -35,4 +35,4 @@ npm test
 ```
 
 > ### Other Projects
-> My other work includes the final project I worked on at the end of the webdev bootcamp. I am highly proud of what my team and myself achieved. It was a unique project with very limited understanding and knowledge of Tensorflow library. We created motion based web game. Recetly we deploed that on [heroku](https://dogeball-game.herokuapp.com/) and you can find the repo [here](https://github.com/doge33/Dogeball-Game).
+> My other work includes the final project I worked on at the end of the webdev bootcamp. I am highly proud of what my team and myself achieved. It was a unique project with very limited understanding and knowledge of Tensorflow library. We created motion based web game. Recetly we deployed the app on [heroku](https://dogeball-game.herokuapp.com/) and you can find the repo [here](https://github.com/doge33/Dogeball-Game).
