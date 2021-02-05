@@ -1,15 +1,11 @@
 const express = require("express");
-// const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { validationResult, check } = require("express-validator/check");
 
-const app = express();
 const router = express.Router();
 
 const User = require("../schema/user");
-
-// app.use(bodyParser.urlencoded({ extended: false }));
 
 /**
  * @method - POST
@@ -26,10 +22,9 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    console.log(req.body);
 
     if (!errors.isEmpty()) {
-      return res.status(400).json({ err: errors.array(), msg: "confirmed" });
+      return res.status(400).json({ err: errors.array() });
     }
 
     const { username, email, password } = req.body;
@@ -48,7 +43,6 @@ router.post(
         password,
       });
 
-      console.log(this.user);
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
 
@@ -58,7 +52,7 @@ router.post(
 
       jwt.sign(payload, "randomString", { expiresIn: 10000 }, (err, token) => {
         if (err) throw err;
-        res.status(200).json({ token });
+        res.status(200).json({ token, message: "User Created!" });
       });
     } catch (err) {
       console.log(err.message);

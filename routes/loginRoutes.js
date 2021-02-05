@@ -21,7 +21,7 @@ router.post(
 
     if (!errors.isEmpty()) {
       return res.status(400).json({
-        errors: errors.array(),
+        err: errors.array(),
       });
     }
 
@@ -57,6 +57,7 @@ router.post(
           if (err) throw err;
           res.status(200).json({
             token,
+            message: "Authorization Valid!",
           });
         }
       );

@@ -17,6 +17,7 @@ const loginRoute = require("./routes/loginRoutes");
 const signupRoute = require("./routes/signupRoutes");
 
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 // Routes
 app.use("/login", loginRoute);
@@ -29,3 +30,5 @@ app.get("/", middleware.checkLogin, (req, res, next) => {
 app.listen(port, () =>
   console.log(`server is up and listening on port ${port}`)
 );
+
+module.exports = app;
