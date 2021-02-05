@@ -1,74 +1,73 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { validationResult, check } = require("express-validator/check");
+
+const { validationResult } = require("express-validator");
+const middleware = require("../middleware");
 
 const router = express.Router();
 const User = require("../schema/user");
 
-router.post(
-  "/",
-  [
-    check("email", "Enter Valid Email!").isEmail(),
-    check("password", "Enter Valid Password").isLength({
-      min: 8,
-    }),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
+/**
+ * @method - POST
+ * @param - /login
+ * @description - User login and validation of inout field.
+ */
 
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        err: errors.array(),
-      });
-    }
+router.post("/", middleware.loginValidation(), async (req, res) => {
+  const errors = validationResult(req);
 
-    const { email, password } = req.body;
-    try {
-      // Query the database for the provided email
-      let user = await User.findOne({ email });
-
-      // ERROR if not exist
-      if (!user) {
-        return res.status(400).json({
-          message: "User Does Not Exist!",
-        });
-      }
-
-      // PASSWORD match
-      const passwordMatch = await bcrypt.compare(password, user.password);
-
-      if (!passwordMatch) {
-        return res.status(400).json({
-          message: "Incorrect Password! Enter the correct Password!",
-        });
-      }
-
-      const payload = {
-        user: { id: user.id },
-      };
-
-      jwt.sign(
-        payload,
-        "randomString",
-        {
-          expiresIn: 3600,
-        },
-        (err, token) => {
-          if (err) throw err;
-          res.status(200).json({
-            token,
-            message: "Authorization Valid!",
-          });
-        }
-      );
-    } catch (e) {
-      console.error(e);
-      res.status(500).json({
-        message: "Server Error",
-      });
-    }
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      err: errors.array(),
+    });
   }
-);
+
+  const { email, password } = req.body;
+  try {
+    // Query the database for the provided email
+    let user = await User.findOne({ email });
+
+    // ERROR if not exist
+    if (!user) {
+      return res.status(400).json({
+        message: "User Does Not Exist!",
+      });
+    }
+
+    // PASSWORD match
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(400).json({
+        message: "Incorrect Password! Enter the correct Password!",
+      });
+    }
+
+    const payload = {
+      user: { id: user.id },
+    };
+
+    jwt.sign(
+      payload,
+      "randomString",
+      {
+        expiresIn: 3600,
+      },
+      (err, token) => {
+        if (err) throw err;
+        res.status(200).json({
+          token,
+          message: "Authorization Valid!",
+        });
+      }
+    );
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      message: "Server Error",
+    });
+  }
+});
 
 module.exports = router;
