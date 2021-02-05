@@ -1,5 +1,5 @@
 # tweeterBE
-This is a Tweet clone user authentication API. Number of different libraries were utilized to develop this API. 
+This is a Tweet clone user authentication API. Number of different libraries were utilized to develop this API. User can be registered and logged in. Upon registertion, jwt token will be issed, which should be provided to the '/' route along with the content-type, in order to retrieve the user info.
 
 ### STACK
 * NodeJS
