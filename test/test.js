@@ -9,7 +9,7 @@ const app = require("../server");
 
 describe("User Registration", () => {
   it("Should return 500 when invalid user info is sent to POST /signup", (done) => {
-    //mock invalid user input
+    //invalid user input
     const new_user = {
       username: " ", // empty username field
       email: "user1@user1.com",
@@ -33,8 +33,8 @@ describe("User Registration", () => {
   it("Should return 400 when invalid email is sent to POST /signup", (done) => {
     //mock invalid user input
     const new_user = {
-      username: "test", // empty username field
-      email: " ",
+      username: "test",
+      email: " ", // empty email field
       password: "password",
     };
 
@@ -53,11 +53,11 @@ describe("User Registration", () => {
   });
 
   it("Should return 400 when invalid password is sent to POST /signup", (done) => {
-    //mock invalid user input
+    // invalid user input
     const new_user = {
       username: "test1",
       email: "test1@test1.com",
-      password: "passwor",
+      password: "passwor", // invalid password field
     };
 
     chai
@@ -75,7 +75,7 @@ describe("User Registration", () => {
   });
 
   it("Should return 200 when valid information is sent to POST /signup and save to the database", (done) => {
-    //mock invalid user input
+    // valid user input
     const new_user = {
       username: "test1",
       email: "test1@test1.com",
@@ -100,7 +100,7 @@ describe("User Registration", () => {
 
 describe("User Login", () => {
   it("should return 400 for invalid credentials", (done) => {
-    //mock invalid user input
+    //invalid user credentials
     const valid_input = {
       email: "test2@test2.com",
       password: "12345678",
@@ -121,7 +121,7 @@ describe("User Login", () => {
   });
 
   it("should return 200 and token for valid credentials", (done) => {
-    //mock invalid user input
+    // valid user credentials
     const valid_input = {
       email: "test1@test1.com",
       password: "password",

@@ -4,6 +4,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const initiateServer = require("./config/db");
 
+// IMPORT routes
+const loginRoute = require("./routes/loginRoutes");
+const signupRoute = require("./routes/signupRoutes");
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -15,9 +19,6 @@ const port = process.env.PORT || 3001;
 
 // MIDDLEWARE
 const middleware = require("./middleware");
-
-const loginRoute = require("./routes/loginRoutes");
-const signupRoute = require("./routes/signupRoutes");
 
 // Router Middleware
 app.use("/login", loginRoute);

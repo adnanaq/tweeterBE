@@ -6,6 +6,8 @@ const { validationResult } = require("express-validator");
 const middleware = require("../middleware");
 
 const router = express.Router();
+
+// IMPORT user smodel
 const User = require("../schema/user");
 
 /**
@@ -17,6 +19,7 @@ const User = require("../schema/user");
 router.post("/", middleware.loginValidation(), async (req, res) => {
   const errors = validationResult(req);
 
+  // Check for any errors
   if (!errors.isEmpty()) {
     return res.status(400).json({
       err: errors.array(),

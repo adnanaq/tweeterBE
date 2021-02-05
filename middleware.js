@@ -1,6 +1,6 @@
 /**
  * This middleware is being used to verify the token,
- * retrive user based on the given token payload and user validation
+ * retrive user based on the given token payload as well as signup and login validation
  *
  * @method - checkLogin checks the if the token matches. will throw error if invalid!
  * @method - userValidation checks for the user input fields for validations during registration
