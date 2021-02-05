@@ -1,7 +1,18 @@
+const jwt = require("jsonwebtoken");
+
 exports.checkLogin = (req, res, next) => {
-  if (req.session && req.session.user) {
-    return next();
-  } else {
+  const token = req.header("token");
+  if (!token) {
+    return res.status(401).json({ message: "Error Authentication" });
   }
-  return res.redirect("/login");
+
+  try {
+    const decode = jwt.verify(token, "randomString");
+    req.user = decode.user;
+    next();
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "Token Invalid!" });
+    return res.redirect("/login");
+  }
 };
