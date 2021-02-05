@@ -6,18 +6,6 @@ const expect = chai.expect;
 chai.use(http);
 
 const app = require("../server");
-describe("Server", () => {
-  //   before((done) => {
-  //     User.find()
-  //       .deleteMany()
-  //       .then((res) => {
-  //         done();
-  //       })
-  //       .catch((err) => {
-  //         done(err);
-  //       });
-  //   });
-});
 
 describe("User Registration", () => {
   it("Should return 500 when invalid user info is sent to POST /signup", (done) => {
@@ -125,9 +113,6 @@ describe("User Login", () => {
       .then((res) => {
         //assertions
         expect(res).to.have.status(400);
-        // expect(res.body.token).to.exist;
-        // expect(res.body.message).to.be.equal("Auth OK");
-        // expect(res.body.errors.length).to.be.equal(0);
         done();
       })
       .catch((err) => {

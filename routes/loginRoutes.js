@@ -3,9 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { validationResult, check } = require("express-validator/check");
 
-const app = express();
 const router = express.Router();
-
 const User = require("../schema/user");
 
 router.post(
@@ -27,14 +25,17 @@ router.post(
 
     const { email, password } = req.body;
     try {
+      // Query the database for the provided email
       let user = await User.findOne({ email });
 
+      // ERROR if not exist
       if (!user) {
         return res.status(400).json({
           message: "User Does Not Exist!",
         });
       }
 
+      // PASSWORD match
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (!passwordMatch) {
@@ -67,7 +68,6 @@ router.post(
         message: "Server Error",
       });
     }
-    // res.json({ message: "This is login route!" });
   }
 );
 

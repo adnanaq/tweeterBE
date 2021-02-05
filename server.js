@@ -5,21 +5,21 @@ const bodyParser = require("body-parser");
 const initiateServer = require("./config/db");
 
 const app = express();
+app.use(bodyParser.json());
+
+// Mongo server initialization
 initiateServer();
 
 //PORT
 const port = process.env.PORT || 3001;
 
-// Middleware
+// MIDDLEWARE
 const middleware = require("./middleware");
 
 const loginRoute = require("./routes/loginRoutes");
 const signupRoute = require("./routes/signupRoutes");
 
-app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-
-// Routes
+// Router Middleware
 app.use("/login", loginRoute);
 app.use("/signup", signupRoute);
 

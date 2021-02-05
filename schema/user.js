@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+// Initialization of User schema
 const UserSchema = new Schema(
   {
     username: { type: String, required: true, trim: true },
@@ -11,5 +12,4 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-// EXPORT MODEL
 module.exports = mongoose.model("User", UserSchema);

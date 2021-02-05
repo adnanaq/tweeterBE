@@ -16,6 +16,7 @@ const User = require("../schema/user");
 router.post(
   "/",
   [
+    // check input fields for the invalid entries.
     check("username", "Enter Valid Username!").not().isEmpty(),
     check("email", "Enter Valid Email!").isEmail(),
     check("password", "Enter Valid Password").isLength({ min: 8 }),
@@ -37,15 +38,18 @@ router.post(
         });
       }
 
+      // Create new user
       user = new User({
         username,
         email,
         password,
       });
 
+      // Hash the password
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
 
+      // Save new user to database
       await user.save();
 
       const payload = { user: { id: user.id } };

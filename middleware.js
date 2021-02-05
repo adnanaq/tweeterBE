@@ -1,3 +1,7 @@
+/**
+ * This middleware is being used to verify the token,
+ * retrive user based on the given token payload
+ */
 const jwt = require("jsonwebtoken");
 
 exports.checkLogin = (req, res, next) => {
