@@ -2,12 +2,12 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { validationResult } = require("express-validator");
+const { validationResult, cookie } = require("express-validator");
 const middleware = require("../middleware");
 
 const router = express.Router();
 
-const User = require("../schema/user");
+const User = require("../schema/userSchema");
 
 /**
  * @method - POST
@@ -48,10 +48,15 @@ router.post("/", middleware.userValidation(), async (req, res) => {
 
     const payload = { user: { id: user.id } };
 
-    jwt.sign(payload, "randomString", { expiresIn: 10000 }, (err, token) => {
-      if (err) throw err;
-      res.status(200).json({ token, message: "User Created!" });
-    });
+    jwt.sign(
+      payload,
+      "randomString",
+      { expiresIn: 10000 },
+      (err, signedToken) => {
+        if (err) throw err;
+        res.status(200).json({ signedToken, message: "User Created!" });
+      }
+    );
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Could not save the User!");

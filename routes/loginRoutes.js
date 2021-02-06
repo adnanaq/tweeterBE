@@ -8,7 +8,7 @@ const middleware = require("../middleware");
 const router = express.Router();
 
 // IMPORT user smodel
-const User = require("../schema/user");
+const User = require("../schema/userSchema");
 
 /**
  * @method - POST
@@ -54,13 +54,11 @@ router.post("/", middleware.loginValidation(), async (req, res) => {
     jwt.sign(
       payload,
       "randomString",
-      {
-        expiresIn: 3600,
-      },
-      (err, token) => {
+      { expiresIn: 3600 },
+      (err, signedToken) => {
         if (err) throw err;
         res.status(200).json({
-          token,
+          signedToken,
           message: "Authorization Valid!",
         });
       }
