@@ -8,6 +8,9 @@ const initiateServer = require("./config/db");
 const loginRoute = require("./routes/loginRoutes");
 const signupRoute = require("./routes/signupRoutes");
 
+// IMPORT API
+const usersRoutes = require("./routes/api/users");
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -23,6 +26,7 @@ const middleware = require("./middleware");
 // Router Middleware
 app.use("/login", loginRoute);
 app.use("/signup", signupRoute);
+app.use("/api/users", usersRoutes);
 
 app.get("/", middleware.checkLogin, (req, res, next) => {
   res.status(200).json({ message: "API working" });
