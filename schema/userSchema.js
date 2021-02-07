@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Initialization of User schema
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     username: { type: String, required: true, trim: true },
     email: { type: String, required: true, trim: true, unique: true },
@@ -16,4 +16,4 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", userSchema);
